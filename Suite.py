@@ -1,4 +1,5 @@
 from Pmf import PMF
+import matplotlib.pyplot as plt
 
 class Suite(PMF):
     def __init__(self,events):
@@ -12,3 +13,19 @@ class Suite(PMF):
             like = self.likelihood(data,event)
             self.mult(event,like)
         self.normalize()
+
+    def max(self):
+        return max(self.kv, key=self.kv.get)
+
+    def min(self):
+        return min(self.kv, key=self.kv.get)
+
+    def mean(self):
+        '''
+        输出后验概率的平均值
+        '''
+        return sum([k*v for k,v in self.kv.items()])
+
+    def plot(self):
+        plt.plot(self.kv.keys(),self.kv.values())
+        plt.show()
